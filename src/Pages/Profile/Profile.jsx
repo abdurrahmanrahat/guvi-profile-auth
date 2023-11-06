@@ -1,16 +1,27 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Profile = () => {
+  const { user } = useContext(AuthContext);
+
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => {};
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
   return (
-    <div>
-      <div>
-        <h2>User Profile</h2>
+    <div className="p-2 md:p-8 md:mx-32 md:mt-20">
+      <div className="flex justify-evenly">
+        <h2 className="text-2xl md:text-4xl font-semibold underline">
+          User Profile
+        </h2>
+        <button className=" bg-[#1575a7] py-2 px-3 text-[18px] text-white font-[500] rounded-lg">
+          Logout
+        </button>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="p-3 md:p-[2px]">
-        <div className="">
+      <form onSubmit={handleSubmit(onSubmit)} className="p-4 md:p-[2px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Name */}
           <div>
             <label className="block mb-[5px] font-bold">Your Name</label>
@@ -18,6 +29,7 @@ const Profile = () => {
               className="w-full p-2 border border-solid border-[#ccc] rounded-lg"
               type="text"
               placeholder="name"
+              defaultValue={user?.displayName}
               {...register("name", { required: true })}
             ></input>
           </div>
@@ -29,6 +41,7 @@ const Profile = () => {
               className="w-full p-2 border border-solid border-[#ccc] rounded-lg"
               type="email"
               placeholder="email"
+              defaultValue={user?.email}
               {...register("email", { required: true })}
             ></input>
           </div>
@@ -84,10 +97,10 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="flex items-center justify-center mt-4">
+        <div className="flex items-center justify-center mt-10">
           <button
             type="submit"
-            className="w-[70%] bg-[#1575a7] py-2 text-[18px] text-white font-[500] rounded-lg"
+            className="w-[60%] bg-[#1575a7] py-2 text-[18px] text-white font-[500] rounded-lg"
           >
             Saved
           </button>
