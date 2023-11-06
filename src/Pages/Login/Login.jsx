@@ -1,15 +1,32 @@
 import { useForm } from "react-hook-form";
 import FormImg from "../../assets/login-image.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
+import toast from "react-hot-toast";
 
 const Login = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { signIn } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/profile";
+
+  const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
+    const email = data.email;
+    const password = data.password;
     console.log(data);
+
+    // sign in user
+    signIn(email, password)
+      .then(() => {
+        toast.success("Login successfully");
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
 
   return (

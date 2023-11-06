@@ -69,6 +69,8 @@ const Register = () => {
                 placeholder="name"
                 {...register("name", { required: true })}
               ></input>
+              {errors.name?.type === "required" &&
+                toast.error("Provide your name")}
             </div>
 
             {/* Email */}
@@ -80,6 +82,8 @@ const Register = () => {
                 placeholder="email"
                 {...register("email", { required: true })}
               ></input>
+              {errors.email?.type === "required" &&
+                toast.error("Provide your email")}
             </div>
 
             {/* password */}
@@ -91,6 +95,8 @@ const Register = () => {
                 placeholder="Enter Password"
                 {...register("password", { required: true })}
               ></input>
+              {errors.password?.type === "required" &&
+                toast.error("Provide your password")}
             </div>
 
             {/* confirm password */}
@@ -104,6 +110,8 @@ const Register = () => {
                 placeholder="Confirm Password"
                 {...register("confirmPassword", { required: true })}
               ></input>
+              {errors.confirmPassword?.type === "required" &&
+                toast.error("Provide your password again")}
             </div>
           </div>
 
