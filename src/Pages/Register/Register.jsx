@@ -1,8 +1,14 @@
 import { useForm } from "react-hook-form";
 import FormImg from "../../assets/login-image.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
+import toast from "react-hot-toast";
 
 const Register = () => {
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -10,6 +16,35 @@ const Register = () => {
   } = useForm();
   const onSubmit = (data) => {
     console.log(data);
+    const name = data.name;
+    const email = data.email;
+    const password = data.password;
+    const confirmPassword = data.confirmPassword;
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
+    // create user
+    createUser(email, password)
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+        toast.success("User Register Successfully");
+
+        // Update Profile
+        updateUserProfile(name)
+          .then(() => {
+            navigate("/profile");
+          })
+          .catch((err) => {
+            toast.error(err.message);
+          });
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
   };
 
   return (
