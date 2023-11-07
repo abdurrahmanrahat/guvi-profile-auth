@@ -1,13 +1,31 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../provider/AuthProvider";
+import toast from "react-hot-toast";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
 
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    const { name, email, age, gender, dob, mobile } = data;
+
+    const newUser = { name, email, age, gender, dob, mobile };
+
+    // Send new user to database store
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          toast.success("User data saved successfully");
+        }
+      });
   };
 
   return (
