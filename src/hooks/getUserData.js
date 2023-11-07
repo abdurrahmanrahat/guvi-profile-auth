@@ -14,7 +14,7 @@ const GetUserData = () => {
     queryKey: ["user"],
     queryFn: async () => {
       const res = await axios(
-        `http://localhost:5000/users?email=${user?.email}`
+        `https://guvi-profile-auth-server.vercel.app/users?email=${user?.email}`
       );
       return res.data;
     },

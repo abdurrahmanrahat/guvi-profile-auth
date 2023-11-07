@@ -25,7 +25,7 @@ export default function Modal({ isOpen, setIsOpen, userId, refetch }) {
     const newUserData = { name, email, age, gender, dob, mobile };
 
     // update data in db
-    fetch(`http://localhost:5000/users/${userId}`, {
+    fetch(`https://guvi-profile-auth-server.vercel.app/users/${userId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

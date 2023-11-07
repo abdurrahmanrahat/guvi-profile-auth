@@ -24,7 +24,7 @@ const Profile = () => {
     queryKey: ["user"],
     queryFn: async () => {
       const res = await axios(
-        `http://localhost:5000/users?email=${user?.email}`
+        `https://guvi-profile-auth-server.vercel.app/users?email=${user?.email}`
       );
       return res.data;
     },
@@ -39,7 +39,7 @@ const Profile = () => {
     const newUser = { name, email, age, gender, dob, mobile };
 
     // Send new user to database store
-    fetch("http://localhost:5000/users", {
+    fetch("https://guvi-profile-auth-server.vercel.app/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",
