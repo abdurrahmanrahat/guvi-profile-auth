@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../provider/AuthProvider";
 import toast from "react-hot-toast";
 import GetUserData from "../../hooks/getUserData";
+import Loading from "../../components/Loading/Loading";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
@@ -32,7 +33,7 @@ const Profile = () => {
   };
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <Loading></Loading>;
   }
 
   return (
