@@ -25,7 +25,7 @@ const Profile = () => {
     },
   });
 
-  console.log(backedUser);
+  // console.log(backedUser);
 
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
@@ -44,6 +44,7 @@ const Profile = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {
+          refetch();
           toast.success("User data saved successfully");
         }
       });
