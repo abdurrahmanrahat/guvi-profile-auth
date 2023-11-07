@@ -2,8 +2,9 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
-export default function Modal({ isOpen, setIsOpen }) {
+export default function Modal({ isOpen, setIsOpen, userId, refetch }) {
   const { user } = useContext(AuthContext);
   function closeModal() {
     setIsOpen(false);
@@ -20,6 +21,26 @@ export default function Modal({ isOpen, setIsOpen }) {
     onCancel();
     console.log(data);
     const { name, email, age, gender, dob, mobile } = data;
+
+    const newUserData = { name, email, age, gender, dob, mobile };
+
+    // update data in db
+    fetch(`http://localhost:5000/users/${userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUserData), // Send the updated user data as JSON
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        refetch();
+        console.log(data);
+        toast.success("User data updated successfully");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
 
   return (
@@ -81,6 +102,7 @@ export default function Modal({ isOpen, setIsOpen }) {
                             type="email"
                             placeholder="email"
                             defaultValue={user?.email}
+                            readOnly
                             {...register("email", { required: true })}
                           ></input>
                         </div>

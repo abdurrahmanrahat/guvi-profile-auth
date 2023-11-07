@@ -127,7 +127,12 @@ const Profile = () => {
                   >
                     Update
                   </button>
-                  <Modal setIsOpen={setIsOpen} isOpen={isOpen}></Modal>
+                  <Modal
+                    setIsOpen={setIsOpen}
+                    isOpen={isOpen}
+                    userId={backedUser._id}
+                    refetch={refetch}
+                  ></Modal>
                 </div>
               </div>
             </div>
