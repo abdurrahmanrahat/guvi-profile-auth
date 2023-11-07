@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../provider/AuthProvider";
 import toast from "react-hot-toast";
@@ -6,8 +6,11 @@ import toast from "react-hot-toast";
 import Loading from "../../components/Loading/Loading";
 import { useQuery } from "react-query";
 import axios from "axios";
+import Modal from "../../components/Modal/Modal";
 
 const Profile = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const { user, logOut } = useContext(AuthContext);
   // const [backedUser, refetch, isLoading] = GetUserData();
   // const { name, email, age, gender, dob, mobile } = backedUser;
@@ -118,9 +121,13 @@ const Profile = () => {
                   </p>
                 </div>
                 <div className="w-1/2">
-                  <button className=" bg-[#1575a7] py-[6px] px-2 text-[15px] text-white font-[500] rounded-lg">
+                  <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className=" bg-[#1575a7] py-[6px] px-2 text-[15px] text-white font-[500] rounded-lg"
+                  >
                     Update
                   </button>
+                  <Modal setIsOpen={setIsOpen} isOpen={isOpen}></Modal>
                 </div>
               </div>
             </div>
