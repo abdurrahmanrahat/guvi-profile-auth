@@ -10,7 +10,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location?.state?.from?.pathname || "/profile";
+  const from = location?.state?.from?.pathname || "/";
 
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
@@ -78,7 +78,7 @@ const Login = () => {
           <div className="flex items-center justify-center mt-4">
             <span className="text-[18px] md:text-[16px] lg:text-[18px]">
               Already have an account?{" "}
-              <Link to="/">
+              <Link to="/register">
                 <span className="text-[#f78719] text-[18px] md:text-[16px] lg:text-[18px] underline cursor-pointer font-[700]">
                   Register Now
                 </span>

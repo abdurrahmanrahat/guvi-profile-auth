@@ -14,6 +14,8 @@ const Profile = () => {
   const { user, logOut } = useContext(AuthContext);
   // const [backedUser, refetch, isLoading] = GetUserData();
   // const { name, email, age, gender, dob, mobile } = backedUser;
+
+  // get user data from backed
   const {
     data: backedUser,
     refetch,
@@ -68,7 +70,7 @@ const Profile = () => {
 
   return (
     <div className="p-2 md:p-8 md:mx-32 md:mt-20">
-      <div className="flex justify-evenly">
+      <div className="flex justify-evenly items-center">
         <h2 className="text-2xl md:text-4xl font-semibold underline">
           User Profile
         </h2>

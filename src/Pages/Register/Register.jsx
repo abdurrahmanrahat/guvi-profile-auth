@@ -1,13 +1,16 @@
 import { useForm } from "react-hook-form";
-import FormImg from "../../assets/login-image.png";
-import { Link, useNavigate } from "react-router-dom";
+import RegisterLottie from "../../assets/register-lottie.json";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import toast from "react-hot-toast";
+import Lottie from "lottie-react";
 
 const Register = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
 
   const {
     register,
@@ -36,7 +39,7 @@ const Register = () => {
         // Update Profile
         updateUserProfile(name)
           .then(() => {
-            navigate("/profile");
+            navigate(from, { replace: true });
           })
           .catch((err) => {
             toast.error(err.message);
@@ -51,7 +54,7 @@ const Register = () => {
     <div className="md:flex items-center gap-4 my-8 md:my-0 lg:p-12">
       {/* image */}
       <div className="md:w-1/2 p-8 md:p-0">
-        <img src={FormImg} alt="" className="md:w-[420px]" />
+        <Lottie animationData={RegisterLottie} loop={true} />
       </div>
       {/* form fields */}
       <div className="md:w-1/2 mx-auto w-full p-4 md:p-8">
