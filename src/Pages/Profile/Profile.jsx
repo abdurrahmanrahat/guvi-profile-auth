@@ -2,9 +2,12 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../provider/AuthProvider";
 import toast from "react-hot-toast";
+import GetUserData from "../../hooks/getUserData";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
+  const [backedUser, refetch, isLoading] = GetUserData();
+  console.log(backedUser);
 
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
@@ -27,6 +30,10 @@ const Profile = () => {
         }
       });
   };
+
+  if (isLoading) {
+    return <h2>Loading...</h2>;
+  }
 
   return (
     <div className="p-2 md:p-8 md:mx-32 md:mt-20">
