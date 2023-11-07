@@ -8,7 +8,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 
 const Profile = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   // const [backedUser, refetch, isLoading] = GetUserData();
   // const { name, email, age, gender, dob, mobile } = backedUser;
   const {
@@ -49,6 +49,15 @@ const Profile = () => {
       });
   };
 
+  // user logout
+  const handleLogout = () => {
+    logOut()
+      .then(() => {
+        toast.success("User logout successfully");
+      })
+      .catch((err) => toast.error(err.message));
+  };
+
   if (isLoading) {
     return <Loading></Loading>;
   }
@@ -59,7 +68,10 @@ const Profile = () => {
         <h2 className="text-2xl md:text-4xl font-semibold underline">
           User Profile
         </h2>
-        <button className=" bg-[#1575a7] py-2 px-3 text-[18px] text-white font-[500] rounded-lg">
+        <button
+          onClick={handleLogout}
+          className=" bg-[#1575a7] py-2 px-3 text-[18px] text-white font-[500] rounded-lg"
+        >
           Logout
         </button>
       </div>
